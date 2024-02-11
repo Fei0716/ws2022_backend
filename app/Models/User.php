@@ -42,4 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // modify the route key
+    public function getRouteKeyName(){
+        return 'username';
+    }
+
+    // relationships
+    public function gameScores(){
+        return $this->hasMany(GameScore::class);
+    }
+    public function games(){
+        return $this->hasMany(GameScore::class ,'id' , 'author_id');
+    }
 }

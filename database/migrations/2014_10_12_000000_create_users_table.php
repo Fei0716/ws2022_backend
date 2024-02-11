@@ -16,11 +16,11 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('blocked_reason' ,['You have been blocked by an administrator','You have been blocked 
-            for spamming' , 'You have been blocked for cheating'])->nullable();
-            $table->timestamp('registered_at');
+            $table->string('blocked_reason')->nullable();
             $table->timestamp('last_login_at')->nullable();
+            $table->timestamps();
             $table->string('session_token')->nullable();
+            
         });
     }
 

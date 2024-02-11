@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\ScoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function(){
+    Route::get('/admin' , [AuthController::class, 'index'])->name('loginPage');
+    Route::post('/login' , [AuthController::class, 'login'])->name('login');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/' , [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/logout' , [AuthController::class, 'logout'])->name('logout');
+
+    // for managing users
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/{user}' , [UserController::class, 'show'])->name('user.profile');
+    Route::put('/user/{user}/unblock' , [UserController::class, 'unblock'])->name('user.unblock');
+    Route::put('/user/{user}/block' , [UserController::class, 'block'])->name('user.block');
+
+    // for managing games
+    Route::resource('game' , GameController::class)->only(['index', 'show' ,'destroy']);
+    // for removing scores
+    Route::delete('/score/{game}' , [ScoreController::class,'destroyAll'])->name('score.destroyAll');
+
+    Route::delete('/score/{score}' , [ScoreController::class,'destroy'])->name('score.destroy');
+    Route::delete('/score/{user}/{game}' , [ScoreController::class,'destroyPlayer'])->name('score.destroyPlayer');
 });
