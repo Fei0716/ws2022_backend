@@ -14,6 +14,9 @@ class UserController extends Controller
 
     // load up user profile
     public function show(User $user){
+        if($user->blocked_reason != null){
+            abort(404); // Return 404 Not Found
+        }
         return view('user.show')->with(['user' => $user]);
     }
     public function block( Request $request,User $user){

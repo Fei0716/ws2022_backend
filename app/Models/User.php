@@ -42,7 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
+    // attributes
+    public static $BLOCKED_REASONS =[
+        'spamming' => 'You have been blocked for spamming',
+        'cheating' => 'You have been blocked for cheating',
+        'other' => 'You have been blocked by an administrator',
+    ];
     // modify the route key
     public function getRouteKeyName(){
         return 'username';
@@ -53,6 +58,6 @@ class User extends Authenticatable
         return $this->hasMany(GameScore::class);
     }
     public function games(){
-        return $this->hasMany(GameScore::class ,'id' , 'author_id');
+        return $this->hasMany(Game::class ,'author_id' , 'id');
     }
 }

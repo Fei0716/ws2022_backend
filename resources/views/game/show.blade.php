@@ -25,25 +25,26 @@
                 </tr>
 
                 @foreach($version->gameScores->sortByDesc('score') as $score)
-                    <tr>
-                        <td>{{$score->user->username}}</td>
-                        <td>{{$score->score}}</td>
-                        <td>
-                            <form action="{{route('score.destroy' , $score)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-secondary" id="btn-delete" type="submit">Delete This Score</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{route('score.destroyPlayer' ,[$score->user , $game] )}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-secondary" id="btn-delete" type="submit">Delete All This Player's Score</button>
-                            </form>
-                        </td>
-                    </tr>
-
+                    @if($score->user->blocked_reason == null)
+                        <tr>
+                            <td>{{$score->user->username}}</td>
+                            <td>{{$score->score}}</td>
+                            <td>
+                                <form action="{{route('score.destroy' , $score)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-secondary" id="btn-delete" type="submit">Delete This Score</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{route('score.destroyPlayer' ,[$score->user , $game] )}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-secondary" id="btn-delete" type="submit">Delete All This Player's Score</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </table>     
 

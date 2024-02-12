@@ -16,4 +16,7 @@ class GameScore extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function gameVersion(){
+        return $this->belongsTo(GameVersion::class);
+    }
 }

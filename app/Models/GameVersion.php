@@ -13,4 +13,7 @@ class GameVersion extends Model
     public function gameScores(){
         return $this->hasMany(GameScore::class);
     }
+    public function game(){
+        return $this->belongsto(Game::class);
+    }
 }
