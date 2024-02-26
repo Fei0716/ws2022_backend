@@ -27,9 +27,9 @@ class GameScoreSeeder extends Seeder
         $game1 = Game::where('title' , 'Demo Game 1')->first();
         $game2 = Game::where('title' , 'Demo Game 2')->first();
 
-        $game1v1 = GameVersion::where('game_id' , $game1->id)->orderBy('created_at')->first();
-        $game1v2 = GameVersion::where('game_id' , $game1->id)->orderBy('created_at' , 'desc')->first();
-        $game2v1 = GameVersion::where('game_id' , $game2->id)->orderBy('created_at' , 'asc')->first();
+        $game1v1 = GameVersion::where('game_id' , $game1->id)->withTrashed()->orderBy('created_at')->first();
+        $game1v2 = GameVersion::where('game_id' , $game1->id)->withTrashed()->orderBy('created_at' , 'desc')->first();
+        $game2v1 = GameVersion::where('game_id' , $game2->id)->withTrashed()->orderBy('created_at' , 'asc')->first();
 
 
         DB::table('game_scores')->insert([

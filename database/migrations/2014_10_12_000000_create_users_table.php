@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('blocked_reason')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
-            $table->string('session_token')->nullable();
-            
         });
     }
 
