@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->unsignedBigInteger('author_id')->onDelete('cascade');
-            $table->string('thumbnail')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('game_id');
             $table->string('path');
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('game_id')->references('id')->on('games');
         });
     }

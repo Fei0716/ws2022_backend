@@ -26,18 +26,22 @@ class GameVersionSeeder extends Seeder
                 'game_id' => $game1->id,
                 'path' => 'games/'.$game1->id.'/v1',
                 'created_at' => Carbon::now()->subHours(2),
+                'deleted_at' => Carbon::now()->subHours(1)->subMinutes(2),
             ],
             [
                 'version' => 'v2',
                 'game_id' => $game1->id,
                 'path' => 'games/'.$game1->id.'/v2',
                 'created_at' => Carbon::now()->subHours(1),
+                'deleted_at' => null,
+
             ],
             [
                 'version' => 'v1',
                 'game_id' => $game2->id,
                 'path' => 'games/'.$game2->id.'/v1',
                 'created_at' => Carbon::now()->subHours(1),
+                'deleted_at' => null,
             ],
         ]);        
     }

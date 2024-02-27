@@ -22,12 +22,12 @@ class AdminUserSeeder extends Seeder
             [
                 'username' => 'admin1',
                 'password' => Hash::make('hellouniverse1!'),
-                'registered_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
             ],
             [
                 'username' => 'admin2',
                 'password' => Hash::make('hellouniverse2!'),
-                'registered_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
             ],
         ]);
     }
