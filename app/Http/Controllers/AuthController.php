@@ -24,10 +24,6 @@ class AuthController extends Controller
         }
     }
     function logout(){
-        AdminUser::where('id',Auth::user()->id)->update([
-            'last_login_at' => null,
-        ]);
-
         Auth::logout();
 
         return redirect()->route('loginPage')->with('success', 'Logout Successful');

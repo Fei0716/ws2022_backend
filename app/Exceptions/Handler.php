@@ -37,13 +37,13 @@ class Handler extends ExceptionHandler
             if ($request->is('api/*')) {
                 $errors = $e->validator->getMessageBag()->toArray();
                 $formattedErrors = [];
-        
+
                 foreach ($errors as $field => $messages) {
                     $formattedErrors[$field] = [
                         'message' => $messages[0]
                     ];
                 }
-        
+
                 return response()->json([
                     'status' => 'invalid',
                     'message' => 'Request body is not valid',
@@ -80,5 +80,5 @@ class Handler extends ExceptionHandler
 
     }
 
-    
+
 }

@@ -22,14 +22,17 @@ class ScoreController extends Controller
         ->orderBy('game_scores.created_at', 'desc')
         ->get()
         ->unique('username');
-    
-        
+
+
         return response()->json([
             'scores' => PlayerHighscoreResource::collection($playerScores),
         ] , 200);
     }
 
     public function store(Game $game, Request $request){
+        $validated = $request->validate([
+            'score'=> 'required'
+        ]);
         $latestVersion = $game->latestVersion;
 
         $score = new GameScore();

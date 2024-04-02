@@ -17,6 +17,7 @@ class HandleBlockedUser
     {
         if($request->user()){
             if($request->user()->blocked_reason != null){
+                $request->user()->currentAccessToken()->delete();
                 return response()->json([
                     'status'=> 'blocked',
                     'message'=> 'User blocked',
@@ -24,7 +25,7 @@ class HandleBlockedUser
                 ]);
             }
         }
-        return $next($request);            
+        return $next($request);
 
     }
 }

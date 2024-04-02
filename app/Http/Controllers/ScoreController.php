@@ -11,8 +11,8 @@ class ScoreController extends Controller
 {
     // for deleting one score
     function destroy(GameScore $score){
+
         $score->delete();
-        $score->save();
 
         return redirect()->back();
     }
