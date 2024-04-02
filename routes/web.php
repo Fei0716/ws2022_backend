@@ -38,6 +38,6 @@ Route::middleware('auth')->group(function(){
     // for removing scores
     Route::delete('/score/{game}' , [ScoreController::class,'destroyAll'])->name('score.destroyAll');
 
-    Route::delete('/score/{score}' , [ScoreController::class,'destroy'])->name('score.destroy');
+    Route::delete('/scores/{score}' , [ScoreController::class,'destroy'])->name('score.destroy');
     Route::delete('/score/{user}/{game}' , [ScoreController::class,'destroyPlayer'])->name('score.destroyPlayer');
 });

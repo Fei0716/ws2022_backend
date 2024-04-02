@@ -52,13 +52,13 @@ class GameController extends Controller
         ];
 
     }
-    
+
     public function store(Request $request){
         $validated = $request->validate([
             'title' => 'required|min:3|max:60',
             'description' => 'required|min:0|max:200',
         ]);
-        //to create a slug 
+        //to create a slug
         $slug = explode(" ",$validated['title']);
         $slug = strtolower(implode("-" , $slug));
         // check uniqueness of slug
@@ -72,7 +72,7 @@ class GameController extends Controller
             $game->title = $validated['title'];
             $game->description = $validated['description'];
             $game->slug = $slug;
-            $game->author_id = $request->user()->id;    
+            $game->author_id = $request->user()->id;
             $game->save();
 
             return response()->json([
@@ -145,17 +145,15 @@ class GameController extends Controller
                 'message'=> 'You are not the game author',
             ],403);
         }
-
-        if(!PersonalAccessToken::findToken($request->token)){
-            return response()->json([
-                'status' => 'unauthorized',
-                'message'=> 'Invalid Access Token',
-            ],401);
+        if ($game->latestVersion !== null) {
+            $gameVersion = $game->latestVersion->version;
+        } else {
+            $gameVersion = 'V0';
         }
-
-        $gameVersion = $game->latestVersion;
-        $newGameVersion = intval(preg_replace('/V/i' ,'' ,$gameVersion->version)) + 1;
-        $file = $request->file("zipfile");
+        $newGameVersion = intval(preg_replace('/V/i' ,'' ,$gameVersion)) + 1;
+        $file = $request->validate([
+            'zipfile' => 'required',
+        ])['zipfile'];
         // Check file size
         $maxFileSize = 10 * 1024 * 1024; // 10 MB
         if ($file->getSize() > $maxFileSize) {
@@ -167,7 +165,7 @@ class GameController extends Controller
         }
         $path = 'games/'.$game->id.'/v'.$newGameVersion;
         if(!file_exists(public_path($path))){
-            mkdir(public_path($path));
+            mkdir(public_path($path), 0777, true);
         }
 
         $zip->extractTo($path);

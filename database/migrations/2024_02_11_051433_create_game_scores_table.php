@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('game_version_id');
             $table->double('score' , 13,2);
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('game_version_id')->references('id')->on('game_versions');

@@ -6,14 +6,14 @@
             <h1>{{$game->title}}</h1>
             <h3>Created by: {{$game->author->username}}</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body shadow-lg">
             <h2 class="text-center">Scores</h2>
             {{-- Reset highscore --}}
                 <form action="{{route('score.destroyAll' , $game)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-primary ms-auto d-block" id="btn-delete" type="submit">Reset Score</button>
-                </form>            
+                </form>
             @foreach($game->gameVersions as $version)
             <div><b>{{$version->version}}</b></div>
             <table class="table table-dark table-striped">
@@ -46,7 +46,7 @@
                         </tr>
                     @endif
                 @endforeach
-            </table>     
+            </table>
 
             @endforeach
         </div>

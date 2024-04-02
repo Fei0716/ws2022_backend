@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GameScore extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
 
     public $fillable =[
         'user_id',
-        'game_version_id', 
-        'score' 
+        'game_version_id',
+        'score'
     ];
     //method
     public function getHighestScore($id){
@@ -23,7 +23,7 @@ class GameScore extends Model
             'user_id' => $id,
         ])->max('score');
         return $highestScore;
-    } 
+    }
     public function getHighestScoreTimestamp($id){
         $highestScoreTimestamp = GameScore::where([
           'game_version_id'=> $this->game_version_id,
@@ -33,7 +33,7 @@ class GameScore extends Model
         ->pluck('created_at')
         ->first();
         return $highestScoreTimestamp;
-    } 
+    }
     // relationship
     public function user(){
         return $this->belongsTo(User::class);
